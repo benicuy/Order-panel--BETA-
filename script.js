@@ -3,7 +3,7 @@
 
 // ======================== KONFIGURASI ========================
 const ADMIN_WA_NUMBER = '6282210756431'; // Nomor admin (format 62, tanpa +)
-const IMGBB_API_KEY = '2f8a5a1f8c8e8d7f6a5b4c3d2e1f0a9b'; // Ganti dengan API key Anda
+const IMGBB_API_KEY = 'b367b5799460ddc30e134136a8454713'; // Ganti dengan API key Anda
 
 // ======================== CEK ELEMEN DOM ========================
 document.addEventListener('DOMContentLoaded', function() {
