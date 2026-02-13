@@ -1,65 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PteroPanel · Public & Private Pterodactyl Hosting</title>
-    <!-- External CSS -->
+    <title>PteroPanel - Hosting Pterodactyl Public & Private</title>
+    
+    <!-- Link ke file CSS terpisah -->
     <link rel="stylesheet" href="style.css">
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome untuk icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navbar -->
+    <!-- ==================== NAVBAR ==================== -->
     <nav class="navbar">
-        <div class="container">
+        <div class="nav-container">
             <div class="logo">
-                <i class="fas fa-dragon"></i>
-                <span>PteroPanel</span>
+                <h2>Ptero<span>Panel</span></h2>
             </div>
             <ul class="nav-menu">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#packages">Paket</a></li>
-                <li><a href="#buy">Beli</a></li>
-                <li><a href="#features">Fitur</a></li>
+                <li><a href="#public">Public</a></li>
+                <li><a href="#private">Private</a></li>
+                <li><a href="#cara-beli">Cara Beli</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- ==================== HERO SECTION ==================== -->
     <section id="home" class="hero">
-        <div class="container">
+        <div class="hero-container">
             <div class="hero-content">
-                <h1>Panel Pterodactyl <span class="highlight">Public & Private</span></h1>
-                <p>Mulai Rp2.000/3GB Public · Langsung aktif, performa tinggi, support 24/7</p>
-                <a href="#packages" class="btn-primary">Lihat Semua Paket</a>
+                <h1>Panel Pterodactyl <span>Public & Private</span></h1>
+                <p class="hero-subtitle">Mulai Rp2.000/3GB Public · Langsung aktif, performa tinggi, support 24/7</p>
+                <a href="#public" class="btn btn-primary">Lihat Semua Paket</a>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="features" class="features">
+    <!-- ==================== KENAPA MEMILIH ==================== -->
+    <section class="features">
         <div class="container">
             <h2 class="section-title">Mengapa Memilih PteroPanel?</h2>
             <div class="features-grid">
                 <div class="feature-card">
-                    <i class="fas fa-bolt"></i>
+                    <i class="fas fa-bolt feature-icon"></i>
                     <h3>Performa Tinggi</h3>
                     <p>NVMe SSD + CPU Ryzen, latency rendah untuk gaming maksimal</p>
                 </div>
                 <div class="feature-card">
-                    <i class="fas fa-shield-alt"></i>
+                    <i class="fas fa-shield-alt feature-icon"></i>
                     <h3>DDoS Protection</h3>
                     <p>Perlindungan 24/7 dari serangan layer 3/4, server tetap online</p>
                 </div>
                 <div class="feature-card">
-                    <i class="fas fa-credit-card"></i>
+                    <i class="fas fa-qrcode feature-icon"></i>
                     <h3>Pembayaran Mudah</h3>
                     <p>QRIS (semua e-wallet & m-banking) + konfirmasi cepat via WA</p>
                 </div>
                 <div class="feature-card">
-                    <i class="fas fa-headset"></i>
+                    <i class="fas fa-headset feature-icon"></i>
                     <h3>Support 24/7</h3>
                     <p>Tim support siap membantu via WhatsApp kapan saja</p>
                 </div>
@@ -67,288 +67,276 @@
         </div>
     </section>
 
-    <!-- Packages Section - Panel Public & Private -->
-    <section id="packages" class="packages">
+    <!-- ==================== PAKET PUBLIC ==================== -->
+    <section id="public" class="packages public-packages">
         <div class="container">
             <h2 class="section-title">🔥 Panel Public (Shared Node)</h2>
             <div class="packages-grid">
-                <!-- Public 3GB -->
+                <!-- Paket Public 3GB -->
                 <div class="package-card">
-                    <div class="package-header">
-                        <h3>Public 3GB</h3>
-                        <div class="price">Rp 2.000<span>/bln</span></div>
-                    </div>
-                    <div class="package-features">
-                        <ul>
-                            <li><i class="fas fa-check"></i> 3 GB RAM</li>
-                            <li><i class="fas fa-check"></i> 2,9 GB RAM</li>
-                        </ul>
-                    </div>
-                    <button class="btn-order" onclick="buyNow('Public 3GB', 2000)">Beli Sekarang</button>
+                    <h3>Public 3GB</h3>
+                    <div class="price">Rp 2.000<span>/bln</span></div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 3 GB RAM</li>
+                        <li><i class="fas fa-check"></i> 2.9 GB RAM</li>
+                    </ul>
+                    <button class="btn btn-package" onclick="openOrderModal('Public 3GB - Rp 2.000')">Beli Sekarang</button>
                 </div>
 
-                <!-- Public 5GB -->
-                <div class="package-card">
-                    <div class="package-header">
-                        <h3>Public 5GB</h3>
-                        <div class="price">Rp 5.000<span>/bln</span></div>
-                    </div>
-                    <div class="package-features">
-                        <ul>
-                            <li><i class="fas fa-check"></i> 5 GB RAM</li>
-                            <li><i class="fas fa-check"></i> 4,9 GB RAM</li>
-                        </ul>
-                    </div>
-                    <button class="btn-order" onclick="buyNow('Public 5GB', 5000)">Beli Sekarang</button>
+                <!-- Paket Public 5GB -->
+                <div class="package-card best-seller">
+                    <div class="badge">Best Seller</div>
+                    <h3>Public 5GB</h3>
+                    <div class="price">Rp 5.000<span>/bln</span></div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 5 GB RAM</li>
+                        <li><i class="fas fa-check"></i> 4.9 GB RAM</li>
+                    </ul>
+                    <button class="btn btn-package" onclick="openOrderModal('Public 5GB - Rp 5.000')">Beli Sekarang</button>
                 </div>
 
-                <!-- Public UNLIMITED (Best Seller) -->
-                <div class="package-card popular">
-                    <div class="popular-badge">Best Seller</div>
-                    <div class="package-header">
-                        <h3>Public UNLIMITED</h3>
-                        <div class="price">Rp 7.000<span>/bln</span></div>
-                    </div>
-                    <div class="package-features">
-                        <ul>
-                            <li><i class="fas fa-check"></i> RAM Fair Usage</li>
-                            <li><i class="fas fa-check"></i> RAM Fair Usage</li>
-                        </ul>
-                    </div>
-                    <button class="btn-order" onclick="buyNow('Public UNLIMITED', 7000)">Beli Sekarang</button>
-                </div>
-            </div>
-
-            <h2 class="section-title" style="margin-top: 60px;">👑 Panel Private (Dedicated Node)</h2>
-            <div class="packages-grid">
-                <!-- Private 3GB -->
+                <!-- Paket Public UNLIMITED -->
                 <div class="package-card">
-                    <div class="package-header">
-                        <h3>Private 3GB</h3>
-                        <div class="price">Rp 7.000<span>/bln</span></div>
-                    </div>
-                    <div class="package-features">
-                        <ul>
-                            <li><i class="fas fa-check"></i> 3 GB Dedicated RAM</li>
-                            <li><i class="fas fa-check"></i> 3 GB Deficated RAM</li>
-                        </ul>
-                    </div>
-                    <button class="btn-order" onclick="buyNow('Private 3GB', 7000)">Beli Sekarang</button>
-                </div>
-
-                <!-- Private 6GB -->
-                <div class="package-card">
-                    <div class="package-header">
-                        <h3>Private 6GB</h3>
-                        <div class="price">Rp 9.000<span>/bln</span></div>
-                    </div>
-                    <div class="package-features">
-                        <ul>
-                            <li><i class="fas fa-check"></i> 6 GB Dedicated RAM</li>
-                            <li><i class="fas fa-check"></i> 6 GB dedicated RAM</li>
-                        </ul>
-                    </div>
-                    <button class="btn-order" onclick="buyNow('Private 6GB', 9000)">Beli Sekarang</button>
-                </div>
-
-                <!-- Private UNLIMITED -->
-                <div class="package-card">
-                    <div class="package-header">
-                        <h3>Private UNLIMITED</h3>
-                        <div class="price">Rp 17.000<span>/bln</span></div>
-                    </div>
-                    <div class="package-features">
-                        <ul>
-                            <li><i class="fas fa-check"></i> High RAM (Fair Usage)</li>
-                            <li><i class="fas fa-check"></i> UNLIMITED RAM FOR HOSTING</li>
-                        </ul>
-                    </div>
-                    <button class="btn-order" onclick="buyNow('Private UNLIMITED', 17000)">Beli Sekarang</button>
+                    <h3>Public UNLIMITED</h3>
+                    <div class="price">Rp 7.000<span>/bln</span></div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> RAM Fair Usage</li>
+                        <li><i class="fas fa-check"></i> Unlimited</li>
+                    </ul>
+                    <button class="btn btn-package" onclick="openOrderModal('Public UNLIMITED - Rp 7.000')">Beli Sekarang</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Buy Section dengan QRIS Image Asli dan Informasi Rekening -->
-    <section id="buy" class="packages" style="padding-top: 0;">
+    <!-- ==================== PAKET PRIVATE ==================== -->
+    <section id="private" class="packages private-packages">
         <div class="container">
-            <div class="buy-section">
-                <h2 style="font-size: 2.2rem; margin-bottom: 30px; text-align: center;">🛒 Cara Membeli Panel</h2>
-                <div class="buy-grid">
-                    <!-- Left: QRIS Image & Payment Info -->
-                    <div>
-                        <div class="qris-box">
-                            <h3><i class="fas fa-qrcode"></i>  Scan QRIS untuk Bayar</h3>
-                            
-                            <!-- QRIS Image - Generated from API (contoh QRIS statis) -->
+            <h2 class="section-title">👑 Panel Private (Dedicated Node)</h2>
+            <div class="packages-grid">
+                <!-- Paket Private 3GB -->
+                <div class="package-card private">
+                    <h3>Private 3GB</h3>
+                    <div class="price">Rp 7.000<span>/bln</span></div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 3 GB Dedicated RAM</li>
+                        <li><i class="fas fa-check"></i> Priority Support</li>
+                    </ul>
+                    <button class="btn btn-package" onclick="openOrderModal('Private 3GB - Rp 7.000')">Beli Sekarang</button>
+                </div>
+
+                <!-- Paket Private 6GB -->
+                <div class="package-card private">
+                    <h3>Private 6GB</h3>
+                    <div class="price">Rp 9.000<span>/bln</span></div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 6 GB Dedicated RAM</li>
+                        <li><i class="fas fa-check"></i> Priority Support</li>
+                    </ul>
+                    <button class="btn btn-package" onclick="openOrderModal('Private 6GB - Rp 9.000')">Beli Sekarang</button>
+                </div>
+
+                <!-- Paket Private UNLIMITED -->
+                <div class="package-card private">
+                    <h3>Private UNLIMITED</h3>
+                    <div class="price">Rp 17.000<span>/bln</span></div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> High RAM (Fair Usage)</li>
+                        <li><i class="fas fa-check"></i> Unlimited RAM</li>
+                    </ul>
+                    <button class="btn btn-package" onclick="openOrderModal('Private UNLIMITED - Rp 17.000')">Beli Sekarang</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CARA BELI DENGAN QRIS ==================== -->
+    <section id="cara-beli" class="how-to-buy">
+        <div class="container">
+            <h2 class="section-title">🛒 Cara Membeli Panel</h2>
+            
+            <!-- Steps -->
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Pilih Paket</h3>
+                    <p>Pilih paket yang diinginkan, klik tombol "Beli Sekarang"</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Scan QRIS</h3>
+                    <p>Scan QR code di bawah dengan aplikasi pembayaran</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Upload Bukti</h3>
+                    <p>Upload screenshot bukti pembayaran di form</p>
+                </div>
+            </div>
+            
+            <!-- QRIS Payment Section -->
+            <div class="payment-info">
+                <!-- QRIS Box -->
+                <div class="qris-box">
+                    <h3><i class="fas fa-qrcode"></i> Scan QRIS untuk Bayar</h3>
+                    
+                    <!-- QRIS Code - Menggunakan Gambar dari Link -->
+                    <div class="qris-container">
+                        <div class="qris-code">
+                            <!-- Gambar QRIS dari link yang diberikan -->
                             <img src="https://files.catbox.moe/80amre.png" 
-                                 alt="QRIS Pembayaran PteroPanel" 
+                                 alt="QRIS PteroPanel" 
                                  class="qris-image"
-                                 onerror="this.onerror=null; this.src='ttps://files.catbox.moe/80amre.png'; this.classList.add('qris-placeholder-image');">
-                            
-                            <p style="margin: 15px 0 5px;">Scan dengan aplikasi pembayaran:</p>
-                            <p style="font-size: 1.1rem; font-weight: 500; color: var(--secondary);">DANA | OVO | GoPay | LinkAja | M-Banking</p>
-                            
-                            <!-- Informasi Rekening Alternatif -->
-                            <div class="payment-bank">
-                                <p style="font-weight: 600; margin-bottom: 10px;"><i class="fas fa-university"></i> Transfer Bank (Alternatif)</p>
-                                
-                                <div class="bank-item">
-                                    <i class="fab fa-whatsapp"></i>
-                                    <span><strong>Konfirmasi via WA</strong></span>
-                                    <button class="copy-btn" onclick="copyToClipboard('6282210756431')">Copy</button>
-                                </div>
-                            </div>
-                            
-                            <div class="admin-contact">
-                                <i class="fab fa-whatsapp"></i>
-                                <span>+62 822-1075-6431 (Admin)</span>
-                            </div>
-                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">* Kirim bukti transfer ke nomor di atas</p>
+                                 style="width: 200px; height: 200px; object-fit: contain; background: white; padding: 10px; border-radius: 10px;">
+                        </div>
+                        
+                        <!-- QRIS Info -->
+                        <div class="qris-fallback">
+                            <p class="qris-id"><strong>QRIS ID:</strong> 082210756431</p>
+                            <p class="qris-merchant"><strong>Merchant:</strong> PteroPanel Official</p>
+                            <p class="qris-note"><small>Scan gambar di atas dengan aplikasi pembayaran</small></p>
                         </div>
                     </div>
+                    
+                    <div class="payment-methods">
+                        <p><i class="fas fa-check-circle"></i> Bisa scan dengan:</p>
+                        <div class="method-icons">
+                            <span class="method"><i class="fas fa-wallet"></i> DANA</span>
+                            <span class="method"><i class="fas fa-credit-card"></i> OVO</span>
+                            <span class="method"><i class="fab fa-google-pay"></i> GoPay</span>
+                            <span class="method"><i class="fas fa-university"></i> M-Banking</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Pilihan Nominal Pembayaran -->
+                    <div class="quick-amount">
+                        <p>Pilih nominal sesuai paket:</p>
+                        <div class="amount-buttons">
+                            <button class="amount-btn" onclick="selectAmount(2000)">Rp 2.000</button>
+                            <button class="amount-btn" onclick="selectAmount(5000)">Rp 5.000</button>
+                            <button class="amount-btn" onclick="selectAmount(7000)">Rp 7.000</button>
+                            <button class="amount-btn" onclick="selectAmount(9000)">Rp 9.000</button>
+                            <button class="amount-btn" onclick="selectAmount(17000)">Rp 17.000</button>
+                        </div>
+                    </div>
+                </div>
 
-                    <!-- Right: Steps and Buy Button -->
-                    <div>
-                        <div class="info-step">
-                            <div class="step-number">1</div>
-                            <div><strong>Pilih paket</strong> yang diinginkan, klik tombol "Beli Sekarang"</div>
-                        </div>
-                        <div class="info-step">
-                            <div class="step-number">2</div>
-                            <div><strong>Scan QRIS</strong> atau transfer ke bank (tanyakan nomor rekening ke admin)</div>
-                        </div>
-                        <div class="info-step">
-                            <div class="step-number">3</div>
-                            <div><strong>Klik tombol di bawah</strong> untuk kirim bukti pembayaran dan data pemesanan</div>
-                        </div>
-                        
-                        <hr>
-                        
-                        <p style="font-weight: 600; margin: 25px 0 15px; font-size: 1.2rem;">📸 Langsung hubungi admin:</p>
-                        <a href="https://wa.me/6282210756431?text=Halo%20admin%20PteroPanel%2C%20saya%20mau%20beli%20panel.%20Sudah%20transfer.%20Mohon%20bantu%20proses." 
-                           target="_blank" class="btn-buy-wa">
-                            <i class="fab fa-whatsapp"></i> KIRIM BUKTI VIA WA
-                        </a>
-                        <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-muted);">
-                            <i class="fas fa-clock"></i> Admin respon cepat, panel dikirim maksimal 30 menit
-                        </p>
-
-                        <!-- Form pemesanan singkat (opsional) -->
-                        <div style="margin-top: 30px; background: #1b253c; padding: 20px; border-radius: 20px;">
-                            <p style="font-weight: 600; margin-bottom: 10px;"><i class="fas fa-pencil-alt"></i> Atau isi form cepat:</p>
-                            <button class="btn-order" style="margin: 0;" onclick="openOrderModal('Pilih paket di atas')">📋 Pesan Lewat Form</button>
-                        </div>
+                <!-- Admin Contact -->
+                <div class="admin-contact">
+                    <h3><i class="fab fa-whatsapp"></i> Konfirmasi via WA</h3>
+                    <p class="wa-number">+62 822-1075-6431 (Admin)</p>
+                    
+                    <!-- Info Penting -->
+                    <div class="info-box">
+                        <p><i class="fas fa-info-circle"></i> Setelah scan & bayar, screenshot bukti transfer</p>
+                        <p><i class="fas fa-info-circle"></i> Upload bukti di form pemesanan</p>
+                        <p><i class="fas fa-info-circle"></i> Panel dikirim maksimal 30 menit</p>
+                    </div>
+                    
+                    <button class="btn btn-wa" onclick="openOrderModal('Konsultasi')">
+                        <i class="fab fa-whatsapp"></i> KIRIM BUKTI VIA FORM
+                    </button>
+                    
+                    <p class="small">*Atau langsung chat admin jika ada kendala</p>
+                </div>
+            </div>
+            
+            <!-- Transfer Bank Alternatif -->
+            <div class="bank-alternative">
+                <h3><i class="fas fa-university"></i> Transfer Bank (Alternatif)</h3>
+                <div class="bank-details">
+                    <div class="bank-item">
+                        <span class="bank-name">BCA</span>
+                        <span class="bank-number">-</span>
+                        <span class="bank-holder">a.n. PteroPanel</span>
+                    </div>
+                    <div class="bank-item">
+                        <span class="bank-name">Mandiri</span>
+                        <span class="bank-number">-</span>
+                        <span class="bank-holder">a.n. PteroPanel</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Order Modal (Form Lengkap dengan Upload Bukti) -->
+    <!-- ==================== MODAL ORDER (FORM PEMESANAN) ==================== -->
     <div id="orderModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeOrderModal()">&times;</span>
-            <h2 style="margin-bottom: 20px; text-align: center;">📋 Form Pemesanan Panel</h2>
+            <button class="close-btn" onclick="closeOrderModal()">&times;</button>
+            <h2><i class="fas fa-shopping-cart"></i> Form Pemesanan Panel</h2>
+            
             <form id="orderForm">
                 <div class="form-group">
-                    <select id="Pilih yang ada">
-                        <option value="">Pilih tipenya</option>
-                        <option value="Public">Public</option>
-                        <option value="Private">Private</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Beli yang Berapa GB <span style="color: var(--danger);">*</span>span></label>
-                    <input type="text" id="GigaByte" placeholder="Contoh: 5GB Private / 5GB public" required>
-                </div>
-                <div class="form-group">
-                    <label>Nama Lengkap <span style="color: var(--danger);">*</span></label>
-                    <input type="text" id="name" placeholder="Contoh: Andi Saputra" required>
-                </div>
-                <div class="form-group">
-                    <label>Email <span style="color: var(--danger);">*</span></label>
-                    <input type="email" id="email" placeholder="anda@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label>Nomor WhatsApp <span style="color: var(--danger);">*</span></label>
-                    <input type="tel" id="whatsapp" placeholder="08123456789" required>
-                </div>
-                <div class="form-group">
-                    <label>Jenis Game (opsional)</label>
-                    <select id="game">
-                        <option value="">Pilih Tipenya (jika ada)</option>
-                        <option value="Public">Public</option>
-                    </select>
-                </div>
-                
-                <!-- Payment Info & Upload -->
-                <div class="payment-info">
-                    <p style="font-weight: 600; margin-bottom: 15px;"><i class="fas fa-credit-card"></i> Pembayaran via QRIS / Transfer</p>
-                    <p>✅ Scan QRIS di halaman utama atau transfer ke bank (minta nomor rekening ke admin).</p>
-                    <p style="background: #1e2a41; padding: 8px; border-radius: 30px; margin: 10px 0;">
-                        <i class="fab fa-whatsapp"></i> Konfirmasi ke 0822-1075-6431
-                    </p>
+                    <label for="name">Nama Lengkap *</label>
+                    <input type="text" id="name" required placeholder="Masukkan nama lengkap">
                 </div>
 
                 <div class="form-group">
-                    <label>Upload Bukti Pembayaran <span style="color: var(--danger);">*</span></label>
-                    <div class="file-upload" onclick="document.getElementById('paymentProof').click()">
-                        <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--secondary);"></i>
-                        <p style="margin: 8px 0 0;">Klik untuk pilih file (screenshot bukti transfer)</p>
-                        <input type="file" id="paymentProof" accept="image/*" style="display: none;">
-                        <div id="file-name">Tidak ada file dipilih</div>
-                    </div>
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" required placeholder="contoh@email.com">
                 </div>
 
                 <div class="form-group">
-                    <label>Catatan Tambahan (opsional)</label>
-                    <textarea id="notes" rows="3" placeholder="Contoh: Mau panel private, pilih node Singapore"></textarea>
+                    <label for="whatsapp">Nomor WhatsApp *</label>
+                    <input type="tel" id="whatsapp" required placeholder="08123456789">
+                </div>
+
+                <div class="form-group">
+                    <label for="package">Paket Dipilih *</label>
+                    <input type="text" id="package" readonly class="readonly-field">
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">Jumlah Transfer (Rp)</label>
+                    <input type="text" id="amount" readonly class="readonly-field" value="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="game">Game (Opsional)</label>
+                    <input type="text" id="game" placeholder="Contoh: Minecraft, GTA SA, dll">
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Catatan (Opsional)</label>
+                    <textarea id="notes" rows="3" placeholder="Catatan tambahan untuk admin..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="paymentProof">Upload Bukti Transfer (Screenshot) *</label>
+                    <input type="file" id="paymentProof" accept="image/*" required>
+                    <div class="file-name" id="file-name">Tidak ada file dipilih</div>
+                    <small class="file-hint">Format: JPG, PNG, GIF (max 2MB) - Screenshot bukti QRIS/Transfer</small>
                 </div>
 
                 <button type="submit" class="btn-submit">
                     <i class="fab fa-whatsapp"></i> Kirim Pesanan via WhatsApp
                 </button>
-                <p style="text-align: center; font-size: 0.8rem; margin-top: 12px; color: var(--text-muted);">
-                    Data akan dikirim ke admin, pastikan sudah upload bukti
-                </p>
             </form>
         </div>
     </div>
 
-    <!-- Success Modal -->
+    <!-- ==================== MODAL SUKSES ==================== -->
     <div id="successModal" class="modal">
         <div class="modal-content success-content">
-            <i class="fas fa-check-circle success-icon"></i>
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
             <h2>Pesanan Terkirim!</h2>
-            <p>Terima kasih, pesanan Anda sudah dikirim ke admin.</p>
-            <p style="background: #1e2a41; padding: 10px; border-radius: 30px; margin: 20px 0;">
-                <i class="fab fa-whatsapp"></i> Admin akan menghubungi Anda via WhatsApp dalam 1x24 jam
-            </p>
-            <button onclick="closeSuccessModal()" class="btn-ok">Tutup</button>
+            <p>Terima kasih, pesanan Anda telah dikirim ke admin.</p>
+            <p>Admin akan memproses maksimal 30 menit dan mengirim detail panel ke WhatsApp Anda.</p>
+            <button class="btn-close" onclick="closeSuccessModal()">Tutup</button>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
         <div class="container">
-            <p>© 2025 PteroPanel · Panel Pterodactyl Public & Private · Semua Pembayaran QRIS</p>
-            <p style="margin-top: 8px; font-size: 0.85rem;">Hosting Gaming dengan Performa Tinggi dan Harga Terjangkau</p>
+            <p>&copy; 2025 PteroPanel. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- External JavaScript -->
+    <!-- Link ke file JavaScript -->
     <script src="script.js"></script>
-    
-    <script>
-        // Fungsi tambahan untuk copy ke clipboard
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(function() {
-                alert('Nomor berhasil disalin: ' + text);
-            }, function(err) {
-                console.error('Gagal menyalin: ', err);
-            });
-        }
-    </script>
 </body>
-</html>
+                        </html>
