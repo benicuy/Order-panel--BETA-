@@ -1,148 +1,116 @@
 // File ini menangani semua interaksi JavaScript untuk halaman panel Pterodactyl
-// Versi dengan upload gambar ke ImgBB dan menghasilkan link
+// Versi SEDERHANA dan STABIL dengan upload gambar ke link
 
 // ======================== KONFIGURASI ========================
 const ADMIN_WA_NUMBER = '6282210756431'; // Nomor admin (format 62, tanpa +)
-const IMGBB_API_KEY = '2f8a5a1f8c8e8d7f6a5b4c3d2e1f0a9b'; // Dapatkan API key gratis di https://api.imgbb.com
-// Ganti API_KEY di atas dengan milik Anda sendiri (daftar gratis di imgbb.com)
+const IMGBB_API_KEY = '2f8a5a1f8c8e8d7f6a5b4c3d2e1f0a9b'; // Ganti dengan API key Anda
 
-// ======================== ELEMEN DOM ========================
-const orderModal = document.getElementById('orderModal');
-const successModal = document.getElementById('successModal');
-const packageInput = document.getElementById('package');
-const orderForm = document.getElementById('orderForm');
-const paymentProof = document.getElementById('paymentProof');
-const fileNameDisplay = document.getElementById('file-name');
-const uploadStatus = document.getElementById('upload-status');
-const submitBtn = document.getElementById('submit-order-btn');
+// ======================== CEK ELEMEN DOM ========================
+// Cek apakah elemen-elemen yang diperlukan ada
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('📦 Script dimuat...');
+    
+    // Cek elemen modal
+    const orderModal = document.getElementById('orderModal');
+    const successModal = document.getElementById('successModal');
+    
+    if (!orderModal) console.warn('⚠️ Elemen orderModal tidak ditemukan');
+    if (!successModal) console.warn('⚠️ Elemen successModal tidak ditemukan');
+    
+    // Setup event listeners
+    setupEventListeners();
+    
+    console.log('✅ Script siap digunakan!');
+});
 
-// ======================== FUNGSI MODAL ORDER ========================
+// ======================== SETUP EVENT LISTENERS ========================
+function setupEventListeners() {
+    // Form submit handler
+    const orderForm = document.getElementById('orderForm');
+    if (orderForm) {
+        orderForm.addEventListener('submit', submitOrder);
+    }
+    
+    // File input handler
+    const paymentProof = document.getElementById('paymentProof');
+    if (paymentProof) {
+        paymentProof.addEventListener('change', updateFileName);
+    }
+    
+    // Tombol close modal
+    document.querySelectorAll('.close-modal, .close-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            closeOrderModal();
+            closeSuccessModal();
+        });
+    });
+}
+
+// ======================== FUNGSI MODAL ========================
 function openOrderModal(packageName) {
-    if (packageInput) {
+    const modal = document.getElementById('orderModal');
+    const packageInput = document.getElementById('package');
+    
+    if (packageInput && packageName) {
         packageInput.value = packageName;
     }
-    if (orderModal) {
-        orderModal.style.display = 'flex';
+    
+    if (modal) {
+        modal.style.display = 'flex';
     }
-    // Reset form
-    resetForm();
 }
 
 function closeOrderModal() {
-    if (orderModal) {
-        orderModal.style.display = 'none';
+    const modal = document.getElementById('orderModal');
+    if (modal) {
+        modal.style.display = 'none';
     }
 }
 
-// ======================== FUNGSI MODAL SUKSES ========================
 function closeSuccessModal() {
-    if (successModal) {
-        successModal.style.display = 'none';
+    const modal = document.getElementById('successModal');
+    if (modal) {
+        modal.style.display = 'none';
     }
 }
 
-// ======================== FUNGSI RESET FORM ========================
-function resetForm() {
-    if (orderForm) orderForm.reset();
-    if (paymentProof) paymentProof.value = '';
-    if (fileNameDisplay) fileNameDisplay.innerText = 'Tidak ada file dipilih';
-    if (uploadStatus) uploadStatus.innerHTML = '';
-    if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerText = 'Kirim Pesanan';
-    }
-}
-
-// ======================== FUNGSI UPLOAD KE IMGBB ========================
-async function uploadToImgBB(file) {
-    try {
-        // Tampilkan status upload
-        if (uploadStatus) {
-            uploadStatus.innerHTML = '<span class="uploading">⏫ Mengupload gambar...</span>';
+// ======================== FUNGSI FILE NAME ========================
+function updateFileName() {
+    const paymentProof = document.getElementById('paymentProof');
+    const fileNameDisplay = document.getElementById('file-name');
+    
+    if (!paymentProof || !fileNameDisplay) return;
+    
+    if (paymentProof.files.length > 0) {
+        const file = paymentProof.files[0];
+        
+        // Validasi tipe file
+        if (!file.type.startsWith('image/')) {
+            alert('⚠️ Harap pilih file gambar (JPG, PNG, GIF)');
+            paymentProof.value = '';
+            fileNameDisplay.textContent = 'Tidak ada file dipilih';
+            return;
         }
-
-        const formData = new FormData();
-        formData.append('image', file);
-
-        // Upload ke ImgBB
-        const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-            method: 'POST',
-            body: formData
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-            // Upload berhasil
-            if (uploadStatus) {
-                uploadStatus.innerHTML = `<span class="success">✅ Upload berhasil! Link: <a href="${data.data.url}" target="_blank">Lihat Gambar</a></span>`;
-            }
-            
-            return {
-                success: true,
-                url: data.data.url,
-                displayUrl: data.data.display_url,
-                thumbnail: data.data.thumb?.url || data.data.url,
-                deleteUrl: data.data.delete_url
-            };
-        } else {
-            throw new Error(data.error?.message || 'Gagal upload ke ImgBB');
+        
+        // Validasi ukuran (max 2MB untuk keamanan)
+        if (file.size > 2 * 1024 * 1024) {
+            alert('⚠️ Ukuran file maksimal 2MB');
+            paymentProof.value = '';
+            fileNameDisplay.textContent = 'Tidak ada file dipilih';
+            return;
         }
-    } catch (error) {
-        console.error('Upload error:', error);
-        if (uploadStatus) {
-            uploadStatus.innerHTML = `<span class="error">❌ Gagal upload: ${error.message}</span>`;
-        }
-        return {
-            success: false,
-            error: error.message
-        };
-    }
-}
-
-// ======================== FUNGSI UPLOAD FILE ========================
-async function updateFileName() {
-    if (paymentProof && fileNameDisplay) {
-        if (paymentProof.files.length > 0) {
-            const file = paymentProof.files[0];
-            
-            // Validasi tipe file
-            if (!file.type.match('image.*')) {
-                alert('⚠️ Hanya file gambar yang diperbolehkan (JPG, PNG, GIF)');
-                paymentProof.value = '';
-                fileNameDisplay.innerText = 'Tidak ada file dipilih';
-                return;
-            }
-            
-            // Validasi ukuran (max 5MB untuk ImgBB free)
-            if (file.size > 5 * 1024 * 1024) {
-                alert('⚠️ Ukuran file maksimal 5MB');
-                paymentProof.value = '';
-                fileNameDisplay.innerText = 'Tidak ada file dipilih';
-                return;
-            }
-            
-            // Batasi nama file agar tidak terlalu panjang
-            let fileName = file.name;
-            if (fileName.length > 30) {
-                fileName = fileName.substring(0, 27) + '...';
-            }
-            fileNameDisplay.innerText = '📎 ' + fileName;
-            
-            // Auto upload ke ImgBB (opsional, bisa juga diupload saat submit)
-            // Uncomment baris di bawah jika ingin auto upload saat pilih file
-            // await uploadToImgBB(file);
-        } else {
-            fileNameDisplay.innerText = 'Tidak ada file dipilih';
-        }
+        
+        fileNameDisplay.textContent = '📎 ' + file.name;
+    } else {
+        fileNameDisplay.textContent = 'Tidak ada file dipilih';
     }
 }
 
 // ======================== FUNGSI SUBMIT FORM ========================
 async function submitOrder(event) {
-    event.preventDefault(); // Mencegah form submit secara default
-
-    // Validasi form
+    event.preventDefault();
+    
+    // Ambil elemen form
     const name = document.getElementById('name')?.value.trim();
     const email = document.getElementById('email')?.value.trim();
     const whatsapp = document.getElementById('whatsapp')?.value.trim();
@@ -150,221 +118,150 @@ async function submitOrder(event) {
     const game = document.getElementById('game')?.value;
     const notes = document.getElementById('notes')?.value.trim();
     const fileInput = document.getElementById('paymentProof');
-
-    // Validasi field wajib
+    const submitBtn = document.querySelector('button[type="submit"]');
+    
+    // Validasi sederhana
     if (!name || !email || !whatsapp || !paket) {
-        alert('⚠️ Harap isi semua field wajib (Nama, Email, WhatsApp, Paket)');
+        alert('⚠️ Harap isi semua field yang wajib diisi');
         return;
     }
-
-    // Validasi email sederhana
-    if (!email.includes('@') || !email.includes('.')) {
-        alert('⚠️ Masukkan alamat email yang valid');
-        return;
-    }
-
-    // Validasi nomor WhatsApp (minimal 10 digit)
-    const waDigits = whatsapp.replace(/\D/g, '');
-    if (waDigits.length < 10 || waDigits.length > 15) {
-        alert('⚠️ Nomor WhatsApp tidak valid (harus 10-15 digit)');
-        return;
-    }
-
-    // Validasi bukti pembayaran
+    
     if (!fileInput || fileInput.files.length === 0) {
-        alert('⚠️ Mohon upload bukti pembayaran (screenshot QRIS / transfer)');
+        alert('⚠️ Harap upload bukti pembayaran');
         return;
     }
-
-    // Disable tombol submit selama proses
+    
+    // Disable tombol submit
     if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerText = '⏳ Mengupload...';
+        submitBtn.textContent = 'Memproses...';
     }
-
-    // Upload file ke ImgBB
-    const file = fileInput.files[0];
-    const uploadResult = await uploadToImgBB(file);
-
-    if (!uploadResult.success) {
-        alert('❌ Gagal mengupload bukti pembayaran. Silakan coba lagi.');
+    
+    try {
+        // Upload gambar dan dapatkan link
+        const imageUrl = await uploadToImgBB(fileInput.files[0]);
+        
+        if (!imageUrl) {
+            throw new Error('Gagal mendapatkan link gambar');
+        }
+        
+        // Buat pesan WhatsApp
+        const message = createWhatsAppMessage({
+            name, email, whatsapp, paket, game, notes, imageUrl
+        });
+        
+        // Buka WhatsApp
+        const waUrl = `https://wa.me/${ADMIN_WA_NUMBER}?text=${encodeURIComponent(message)}`;
+        window.open(waUrl, '_blank');
+        
+        // Tampilkan modal sukses
+        closeOrderModal();
+        setTimeout(() => {
+            const successModal = document.getElementById('successModal');
+            if (successModal) successModal.style.display = 'flex';
+        }, 300);
+        
+        // Reset form
+        document.getElementById('orderForm')?.reset();
+        const fileNameDisplay = document.getElementById('file-name');
+        if (fileNameDisplay) fileNameDisplay.textContent = 'Tidak ada file dipilih';
+        
+    } catch (error) {
+        console.error('Error:', error);
+        alert('❌ Gagal memproses pesanan. Silakan coba lagi atau hubungi admin langsung.');
+    } finally {
+        // Enable kembali tombol submit
         if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.innerText = 'Kirim Pesanan';
+            submitBtn.textContent = 'Kirim Pesanan';
         }
-        return;
     }
+}
 
-    // Dapatkan URL gambar dari hasil upload
-    const imageUrl = uploadResult.url;
-    const thumbnailUrl = uploadResult.thumbnail;
+// ======================== FUNGSI UPLOAD KE IMGBB ========================
+async function uploadToImgBB(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        
+        reader.onload = async function(e) {
+            try {
+                // Ambil base64 data (hapus prefix)
+                const base64Data = e.target.result.split(',')[1];
+                
+                // Buat form data
+                const formData = new FormData();
+                formData.append('key', IMGBB_API_KEY);
+                formData.append('image', base64Data);
+                
+                // Upload ke ImgBB
+                const response = await fetch('https://api.imgbb.com/1/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    resolve(data.data.url);
+                } else {
+                    reject(new Error('Gagal upload ke ImgBB'));
+                }
+            } catch (error) {
+                reject(error);
+            }
+        };
+        
+        reader.onerror = function() {
+            reject(new Error('Gagal membaca file'));
+        };
+        
+        // Baca file sebagai base64
+        reader.readAsDataURL(file);
+    });
+}
 
-    // Siapkan pesan WhatsApp dengan LINK gambar
-    const pesan = `Halo Admin PteroHost, saya ingin order panel:
+// ======================== FUNGSI BUAT PESAN WHATSAPP ========================
+function createWhatsAppMessage(data) {
+    const { name, email, whatsapp, paket, game, notes, imageUrl } = data;
+    
+    return `Halo Admin PteroPanel, saya ingin order panel:
 
 📦 *PAKET*: ${paket}
 👤 *NAMA*: ${name}
 📧 *EMAIL*: ${email}
 📱 *WA*: ${whatsapp}
-🎮 *GAME*: ${game || 'Tidak disebutkan'}
+🎮 *GAME*: ${game || '-'}
 📝 *CATATAN*: ${notes || '-'}
 
 🖼️ *BUKTI PEMBAYARAN*: 
 ${imageUrl}
 
-(Link gambar di atas bisa langsung diklik untuk melihat bukti)
-
-Mohon diproses dan dikirim akses panelnya. Terima kasih.`;
-
-    // Encode pesan untuk URL
-    const encodedMessage = encodeURIComponent(pesan);
-
-    // Buat URL WhatsApp
-    const waURL = `https://wa.me/${ADMIN_WA_NUMBER}?text=${encodedMessage}`;
-
-    // Simpan URL gambar untuk referensi (opsional)
-    console.log('Gambar berhasil diupload:', imageUrl);
-    console.log('Thumbnail:', thumbnailUrl);
-
-    // Buka WhatsApp di tab baru
-    window.open(waURL, '_blank');
-
-    // Tutup modal order
-    closeOrderModal();
-
-    // Tampilkan modal sukses
-    setTimeout(() => {
-        if (successModal) {
-            successModal.style.display = 'flex';
-        }
-        // Reset form untuk pemesanan berikutnya
-        resetForm();
-    }, 500);
+Mohon diproses ya, terima kasih.`;
 }
 
-// ======================== FUNGSI BELI LANGSUNG ========================
+// ======================== FUNGSI BUY NOW ========================
 function buyNow(paket, harga) {
-    // Format harga ke Rupiah
-    const hargaFormat = new Intl.NumberFormat('id-ID').format(harga);
+    const pesan = `Halo kak, saya ingin order panel:
+
+🔹 Paket: ${paket}
+🔹 Harga: Rp ${harga.toLocaleString('id-ID')}
+
+Saya akan kirim bukti pembayaran via link.`;
     
-    // Buat pesan template untuk pembelian langsung
-    const pesan = `Halo kak, saya ingin order panel Pterodactyl:
-
-🔹 *Paket*: ${paket}
-🔹 *Harga*: Rp ${hargaFormat}
-
-Saya sudah melakukan pembayaran via QRIS.
-
-Untuk bukti transfer, saya akan kirimkan link gambar setelah upload.
-
-Mohon segera diproses dan dikirim akses panelnya. 
-Terima kasih.`;
-
-    // Encode pesan
-    const encodedMessage = encodeURIComponent(pesan);
-    
-    // Buat URL WhatsApp
-    const waURL = `https://wa.me/${ADMIN_WA_NUMBER}?text=${encodedMessage}`;
-    
-    // Buka WhatsApp di tab baru
-    window.open(waURL, '_blank');
+    const waUrl = `https://wa.me/${ADMIN_WA_NUMBER}?text=${encodeURIComponent(pesan)}`;
+    window.open(waUrl, '_blank');
 }
 
 // ======================== CLICK OUTSIDE MODAL ========================
-window.onclick = function(event) {
-    if (orderModal && event.target == orderModal) {
+window.addEventListener('click', function(event) {
+    const orderModal = document.getElementById('orderModal');
+    const successModal = document.getElementById('successModal');
+    
+    if (orderModal && event.target === orderModal) {
         orderModal.style.display = 'none';
     }
-    if (successModal && event.target == successModal) {
+    
+    if (successModal && event.target === successModal) {
         successModal.style.display = 'none';
     }
-}
-
-// ======================== TAMBAHKAN STYLE UNTUK STATUS UPLOAD ========================
-function addUploadStyles() {
-    const style = document.createElement('style');
-    style.textContent = `
-        #upload-status {
-            margin: 10px 0;
-            padding: 8px;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        #upload-status .uploading {
-            color: #f39c12;
-            background: #fff3e0;
-            padding: 5px 10px;
-            border-radius: 4px;
-            display: inline-block;
-        }
-        #upload-status .success {
-            color: #27ae60;
-            background: #e8f5e9;
-            padding: 5px 10px;
-            border-radius: 4px;
-            display: inline-block;
-        }
-        #upload-status .success a {
-            color: #27ae60;
-            font-weight: bold;
-            text-decoration: underline;
-        }
-        #upload-status .error {
-            color: #c0392b;
-            background: #fbe9e7;
-            padding: 5px 10px;
-            border-radius: 4px;
-            display: inline-block;
-        }
-        .file-name {
-            margin: 5px 0;
-            padding: 8px;
-            background: #f5f5f5;
-            border-radius: 4px;
-            font-size: 13px;
-        }
-    `;
-    document.head.appendChild(style);
-}
-
-// ======================== INITIALIZATION ========================
-document.addEventListener('DOMContentLoaded', function() {
-    // Tambahkan container untuk status upload jika belum ada
-    if (paymentProof && !document.getElementById('upload-status')) {
-        const statusDiv = document.createElement('div');
-        statusDiv.id = 'upload-status';
-        paymentProof.parentNode.insertBefore(statusDiv, paymentProof.nextSibling);
-    }
-
-    // Tambahkan styles
-    addUploadStyles();
-
-    // Tambahkan event listener untuk form jika ada
-    if (orderForm) {
-        orderForm.addEventListener('submit', submitOrder);
-    }
-
-    // Tambahkan event listener untuk file input
-    if (paymentProof) {
-        paymentProof.addEventListener('change', updateFileName);
-    }
-
-    // Smooth scroll untuk anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href !== "#") {
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            }
-        });
-    });
-
-    console.log('✅ Script.js dengan fitur upload gambar ke link siap digunakan!');
 });
