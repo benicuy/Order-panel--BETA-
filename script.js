@@ -1,5 +1,5 @@
 // File ini menangani semua interaksi JavaScript untuk halaman panel Pterodactyl
-// Versi SEDERHANA dan STABIL dengan upload gambar ke link
+// Versi dengan upload gambar ke ImgBB dan QRIS image
 
 // ======================== KONFIGURASI ========================
 const ADMIN_WA_NUMBER = '6282210756431'; // Nomor admin (format 62, tanpa +)
@@ -32,6 +32,8 @@ function openOrderModal(packageName) {
     
     if (packageInput && packageName) {
         packageInput.value = packageName;
+        // Set amount berdasarkan paket
+        setAmountFromPackage(packageName);
     }
     
     if (modal) {
@@ -51,6 +53,32 @@ function closeSuccessModal() {
     if (modal) {
         modal.style.display = 'none';
     }
+}
+
+// ======================== FUNGSI UNTUK AMOUNT ========================
+function setAmountFromPackage(packageName) {
+    const amountField = document.getElementById('amount');
+    if (!amountField) return;
+    
+    // Ekstrak harga dari nama paket
+    const priceMatch = packageName.match(/Rp\s*([0-9,.]+)/);
+    if (priceMatch) {
+        let price = priceMatch[1].replace(/\./g, '').replace(/,/g, '');
+        amountField.value = 'Rp ' + parseInt(price).toLocaleString('id-ID');
+    }
+}
+
+function selectAmount(amount) {
+    const amountField = document.getElementById('amount');
+    if (amountField) {
+        amountField.value = 'Rp ' + amount.toLocaleString('id-ID');
+    }
+    
+    // Buka modal order
+    openOrderModal('Custom - Rp ' + amount.toLocaleString('id-ID'));
+    
+    // Informasi ke user
+    alert('Silahkan scan QRIS dan transfer Rp ' + amount.toLocaleString('id-ID'));
 }
 
 // ======================== FUNGSI FILE NAME ========================
@@ -96,6 +124,7 @@ async function submitOrder(event) {
     const fileInput = document.getElementById('paymentProof');
     const submitBtn = document.querySelector('button[type="submit"]');
     
+    // Validasi
     if (!name || !email || !whatsapp || !paket) {
         alert('⚠️ Harap isi semua field yang wajib diisi');
         return;
@@ -106,31 +135,52 @@ async function submitOrder(event) {
         return;
     }
     
+    // Validasi email
+    if (!email.includes('@') || !email.includes('.')) {
+        alert('⚠️ Masukkan alamat email yang valid');
+        return;
+    }
+    
+    // Validasi nomor WhatsApp
+    const waDigits = whatsapp.replace(/\D/g, '');
+    if (waDigits.length < 10 || waDigits.length > 15) {
+        alert('⚠️ Nomor WhatsApp tidak valid (harus 10-15 digit)');
+        return;
+    }
+    
+    // Disable tombol submit
     if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Memproses...';
+        submitBtn.textContent = '⏫ Mengupload...';
     }
     
     try {
+        // Upload gambar ke ImgBB
         const imageUrl = await uploadToImgBB(fileInput.files[0]);
         
         if (!imageUrl) {
             throw new Error('Gagal mendapatkan link gambar');
         }
         
+        // Buat pesan WhatsApp
         const message = createWhatsAppMessage({
             name, email, whatsapp, paket, game, notes, imageUrl
         });
         
+        // Buka WhatsApp
         const waUrl = `https://wa.me/${ADMIN_WA_NUMBER}?text=${encodeURIComponent(message)}`;
         window.open(waUrl, '_blank');
         
+        // Tutup modal order
         closeOrderModal();
+        
+        // Tampilkan modal sukses
         setTimeout(() => {
             const successModal = document.getElementById('successModal');
             if (successModal) successModal.style.display = 'flex';
-        }, 300);
+        }, 500);
         
+        // Reset form
         document.getElementById('orderForm')?.reset();
         const fileNameDisplay = document.getElementById('file-name');
         if (fileNameDisplay) fileNameDisplay.textContent = 'Tidak ada file dipilih';
@@ -139,9 +189,10 @@ async function submitOrder(event) {
         console.error('Error:', error);
         alert('❌ Gagal memproses pesanan. Silakan coba lagi atau hubungi admin langsung.');
     } finally {
+        // Enable kembali tombol submit
         if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Kirim Pesanan';
+            submitBtn.textContent = 'Kirim Pesanan via WhatsApp';
         }
     }
 }
