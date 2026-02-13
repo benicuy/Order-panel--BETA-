@@ -363,8 +363,130 @@ body {
     text-align: center;
 }
 
-.qris-placeholder {
+/* ==================== QRIS IMAGE STYLES ==================== */
+.qris-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.qris-code {
+    background-color: white;
+    padding: 15px;
+    border-radius: 15px;
+    display: inline-block;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.qris-image {
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.qris-image:hover {
+    transform: scale(1.02);
+}
+
+.qris-fallback {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.qris-id, .qris-merchant {
+    font-size: 1.1rem;
+    margin: 5px 0;
+}
+
+.qris-id {
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.qris-note {
+    color: var(--gray);
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.payment-methods {
+    text-align: center;
+    margin: 20px 0;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.method-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.method {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    background-color: rgba(37, 99, 235, 0.1);
+    border-radius: 5px;
+    color: var(--light);
+}
+
+.method i {
+    color: var(--primary);
+}
+
+.quick-amount {
     margin-top: 20px;
+}
+
+.amount-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.amount-btn {
+    padding: 8px 15px;
+    background-color: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+.amount-btn:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+.info-box {
+    background-color: rgba(37, 99, 235, 0.1);
+    border-left: 4px solid var(--primary);
+    padding: 15px;
+    margin: 20px 0;
+    text-align: left;
+    border-radius: 5px;
+}
+
+.info-box p {
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-box i {
+    color: var(--primary);
 }
 
 .wa-number {
@@ -378,6 +500,49 @@ body {
     font-size: 0.9rem;
     color: var(--gray);
     margin-bottom: 20px;
+}
+
+.bank-alternative {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.bank-alternative h3 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.bank-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.bank-item {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.bank-name {
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.bank-number {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.bank-holder {
+    color: var(--gray);
+    font-size: 0.9rem;
 }
 
 /* ==================== MODAL STYLES ==================== */
@@ -582,6 +747,23 @@ body {
     
     .package-card.best-seller:hover {
         transform: translateY(-5px);
+    }
+    
+    .qris-image {
+        width: 180px !important;
+        height: 180px !important;
+    }
+    
+    .method-icons {
+        gap: 10px;
+    }
+    
+    .method {
+        font-size: 0.9rem;
+    }
+    
+    .bank-details {
+        grid-template-columns: 1fr;
     }
 }
 
