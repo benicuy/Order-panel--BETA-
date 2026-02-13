@@ -81,10 +81,7 @@
                     <div class="package-features">
                         <ul>
                             <li><i class="fas fa-check"></i> 3 GB RAM</li>
-                            <li><i class="fas fa-check"></i> 2 vCore CPU</li>
-                            <li><i class="fas fa-check"></i> 25 GB SSD</li>
-                            <li><i class="fas fa-check"></i> 1 Database</li>
-                            <li><i class="fas fa-check"></i> Public Node</li>
+                            <li><i class="fas fa-check"></i> 2,9 GB RAM</li>
                         </ul>
                     </div>
                     <button class="btn-order" onclick="buyNow('Public 3GB', 2000)">Beli Sekarang</button>
@@ -99,10 +96,7 @@
                     <div class="package-features">
                         <ul>
                             <li><i class="fas fa-check"></i> 5 GB RAM</li>
-                            <li><i class="fas fa-check"></i> 3 vCore CPU</li>
-                            <li><i class="fas fa-check"></i> 40 GB SSD</li>
-                            <li><i class="fas fa-check"></i> 2 Database</li>
-                            <li><i class="fas fa-check"></i> Public Node</li>
+                            <li><i class="fas fa-check"></i> 4,9 GB RAM</li>
                         </ul>
                     </div>
                     <button class="btn-order" onclick="buyNow('Public 5GB', 5000)">Beli Sekarang</button>
@@ -118,10 +112,7 @@
                     <div class="package-features">
                         <ul>
                             <li><i class="fas fa-check"></i> RAM Fair Usage</li>
-                            <li><i class="fas fa-check"></i> 4 vCore CPU</li>
-                            <li><i class="fas fa-check"></i> 60 GB NVMe</li>
-                            <li><i class="fas fa-check"></i> Unlimited Database</li>
-                            <li><i class="fas fa-check"></i> Public Node</li>
+                            <li><i class="fas fa-check"></i> RAM Fair Usage</li>
                         </ul>
                     </div>
                     <button class="btn-order" onclick="buyNow('Public UNLIMITED', 7000)">Beli Sekarang</button>
@@ -139,10 +130,7 @@
                     <div class="package-features">
                         <ul>
                             <li><i class="fas fa-check"></i> 3 GB Dedicated RAM</li>
-                            <li><i class="fas fa-check"></i> 4 vCore CPU</li>
-                            <li><i class="fas fa-check"></i> 50 GB NVMe</li>
-                            <li><i class="fas fa-check"></i> 5 Database</li>
-                            <li><i class="fas fa-check"></i> Private Node (1 User)</li>
+                            <li><i class="fas fa-check"></i> 3 GB Deficated RAM</li>
                         </ul>
                     </div>
                     <button class="btn-order" onclick="buyNow('Private 3GB', 7000)">Beli Sekarang</button>
@@ -157,10 +145,7 @@
                     <div class="package-features">
                         <ul>
                             <li><i class="fas fa-check"></i> 6 GB Dedicated RAM</li>
-                            <li><i class="fas fa-check"></i> 6 vCore CPU</li>
-                            <li><i class="fas fa-check"></i> 90 GB NVMe</li>
-                            <li><i class="fas fa-check"></i> Unlimited Database</li>
-                            <li><i class="fas fa-check"></i> Dedicated IP</li>
+                            <li><i class="fas fa-check"></i> 6 GB dedicated RAM</li>
                         </ul>
                     </div>
                     <button class="btn-order" onclick="buyNow('Private 6GB', 9000)">Beli Sekarang</button>
@@ -175,10 +160,7 @@
                     <div class="package-features">
                         <ul>
                             <li><i class="fas fa-check"></i> High RAM (Fair Usage)</li>
-                            <li><i class="fas fa-check"></i> 8 vCore CPU</li>
-                            <li><i class="fas fa-check"></i> 150 GB NVMe</li>
-                            <li><i class="fas fa-check"></i> Unlimited Database</li>
-                            <li><i class="fas fa-check"></i> Dedicated IP + Backup</li>
+                            <li><i class="fas fa-check"></i> UNLIMITED RAM FOR HOSTING</li>
                         </ul>
                     </div>
                     <button class="btn-order" onclick="buyNow('Private UNLIMITED', 17000)">Beli Sekarang</button>
@@ -199,10 +181,10 @@
                             <h3><i class="fas fa-qrcode"></i>  Scan QRIS untuk Bayar</h3>
                             
                             <!-- QRIS Image - Generated from API (contoh QRIS statis) -->
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=QRIS%20PteroPanel%0AA%20N%3DPteroPanel%0AID%3D220512%0APrice%3D%7Bamount%7D%0Ahttps://wa.me/6282298765432" 
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=QRIS%20PteroPanel%0AA%20N%3DPteroPanel%0AID%3D220512%0APrice%3D%7Bamount%7D%0Ahttps://wa.me/6282210756431" 
                                  alt="QRIS Pembayaran PteroPanel" 
                                  class="qris-image"
-                                 onerror="this.onerror=null; this.src='https://via.placeholder.com/300x300/1a253b/9d7bf5?text=QRIS+Placeholder'; this.classList.add('qris-placeholder-image');">
+                                 onerror="this.onerror=null; this.src='ttps://files.catbox.moe/80amre.png'; this.classList.add('qris-placeholder-image');">
                             
                             <p style="margin: 15px 0 5px;">Scan dengan aplikasi pembayaran:</p>
                             <p style="font-size: 1.1rem; font-weight: 500; color: var(--secondary);">DANA | OVO | GoPay | LinkAja | M-Banking</p>
@@ -271,6 +253,10 @@
             <form id="orderForm">
                 <div class="form-group">
                     <label>Paket Dipilih</label>
+                    <select id="game">
+                        <option value="">Pilih Tipenya (jika ada)</option>
+                        <option value="Public">Public</option>
+                    </select>
                     <input type="text" id="package" readonly>
                 </div>
                 <div class="form-group">
